@@ -153,9 +153,14 @@ async function findMoltbotInstallation() {
         '/usr/local/lib/node_modules/clawdbot',
         '/usr/lib/node_modules/clawdbot',
         '/opt/clawdbot',
+        '/usr/local/lib/node_modules/moltbot',
+        '/usr/lib/node_modules/moltbot',
+        '/opt/moltbot',
         path.join(os.homedir(), '.clawdbot'),
+        path.join(os.homedir(), '.moltbot'),
         // Windows paths
-        process.env.APPDATA ? path.join(process.env.APPDATA, 'npm', 'node_modules', 'clawdbot') : null
+        process.env.APPDATA ? path.join(process.env.APPDATA, 'npm', 'node_modules', 'clawdbot') : null,
+        process.env.APPDATA ? path.join(process.env.APPDATA, 'npm', 'node_modules', 'moltbot') : null
     ].filter(Boolean);
     
     candidates.push(...commonPaths);
@@ -175,7 +180,17 @@ async function findMoltbotInstallation() {
 
 async function isValidInstall(dir) {
     try {
-        return await fs.pathExists(path.join(dir, 'dist', 'control-ui'));
+        // 只要 dist 目录存在，我们就认为它是有效的安装目录（即使 control-ui 不存在，我们可以创建）
+        // 或者如果有 package.json 且包含相关关键字
+        const hasDist = await fs.pathExists(path.join(dir, 'dist'));
+        if (hasDist) return true;
+
+        const pkgPath = path.join(dir, 'package.json');
+        if (await fs.pathExists(pkgPath)) {
+            const pkg = await fs.readJson(pkgPath);
+            return pkg.name === 'clawdbot' || pkg.name === 'moltbot';
+        }
+        return false;
     } catch (e) {
         return false;
     }
