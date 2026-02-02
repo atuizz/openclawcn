@@ -1,21 +1,13 @@
-# Moltbot/Clawdbot WebUI 一键汉化工具
+# OpenClawCN - Moltbot/Clawdbot 中文汉化包
 
-基于 [Moltbot-cn](https://github.com/rimhoo/Moltbot-cn) 项目开发的自动化安装脚本。本工具可以自动下载最新的汉化源码，在本地编译，并替换原版 Moltbot/Clawdbot 的 WebUI 界面。
+这是一个针对 Moltbot/Clawdbot 的一键汉化工具。与旧版不同，本版本**直接内置了汉化好的 WebUI 资源文件**，安装过程无需编译，无需下载额外源码，速度极快且稳定。
 
-## ✨ 功能特点
+## ✨ 特性
 
-- 🚀 **自动化流程**：自动检测环境、克隆代码、安装依赖、构建项目。
-- 🔍 **智能定位**：自动查找本机全局安装的 `clawdbot` 或 `moltbot` 路径。
-- 🛡️ **安全备份**：在替换前自动备份原版 UI 文件，确保可以随时回滚。
-- 💻 **跨平台**：支持 Windows, macOS, Linux (需具备 Node.js 环境)。
-
-## 📋 前置要求
-
-在运行此脚本之前，请确保您的系统已安装：
-
-- [Node.js](https://nodejs.org/) (建议 v16+)
-- [Git](https://git-scm.com/)
-- 已安装原版 `clawdbot` (通过 `npm install -g clawdbot` 或 `moltbot`)
+- **📦 内置资源**：汉化文件随安装包分发，无需网络拉取源码。
+- **⚡ 极速安装**：直接替换文件，秒级完成。
+- **🛡️ 自动备份**：自动备份原版 UI，随时可恢复。
+- **🤖 智能定位**：自动查找系统中的安装目录，支持手动指定。
 
 ## 🚀 一键安装 (推荐)
 
@@ -33,48 +25,23 @@ iwr https://raw.githubusercontent.com/atuizz/openclawcn/main/easy_install.ps1 | 
 
 ## 📦 手动安装
 
-1. 安装脚本依赖：
+1. 下载本项目 ZIP 包或 `git clone`。
+2. 安装依赖：
    ```bash
    npm install
    ```
-2. 运行安装脚本：
+3. 运行安装程序：
    ```bash
-   npm start
+   node index.js
    ```
 
-### 方法 2: 全局安装使用
+## 🛠️ 常见问题
 
-如果将本项目打包发布到 npm (假设包名为 `moltbot-cn-installer`)：
+**Q: 提示“未找到安装目录”怎么办？**  
+A: 程序会提示您手动输入路径。请找到您的 `clawdbot` 安装位置（通常包含 `dist/control-ui` 文件夹），输入该路径即可。
 
-```bash
-npm install -g moltbot-cn-installer
-moltbot-cn
-```
-
-## 🛠️ 使用说明
-
-1. 运行脚本后，程序会自动检查 Git 和 Node.js 环境。
-2. 程序会尝试自动定位 `clawdbot` 的安装位置。如果未找到，会提示您手动输入路径。
-3. 确认安装后，程序将开始下载源码并编译（根据网络状况和电脑性能，可能需要 1-5 分钟）。
-4. 编译完成后，会自动备份原文件并应用汉化。
-5. 成功后，请按照提示运行 `clawdbot gateway restart` 重启服务。
-
-## ⚠️ 注意事项
-
-- 本工具会下载约 50MB+ 的源码和依赖，请保持网络畅通。
-- 编译过程需要消耗一定的 CPU 和内存资源。
-- 汉化源来自社区维护的 [rimhoo/Moltbot-cn](https://github.com/rimhoo/Moltbot-cn)，请关注该项目的更新情况。
-
-## ❓ 常见问题
-
-**Q: 安装过程中报错 `git clone failed`?**  
-A: 请检查您的网络连接，确保能访问 GitHub。
-
-**Q: 构建时报错?**  
-A: 可能是 Node.js 版本问题或依赖下载失败。尝试清理 npm 缓存或升级 Node.js。
-
-**Q: 汉化后界面显示异常?**  
-A: 请尝试清除浏览器缓存，或检查是否版本不匹配。您可以在安装目录的 `dist` 文件夹中找到备份文件进行恢复。
+**Q: 如何恢复原版？**  
+A: 安装程序会在 `dist` 目录下生成 `control-ui-backup-时间戳` 文件夹。只需将其重命名回 `control-ui` 即可恢复。
 
 ## 📝 许可证
 

@@ -1,10 +1,10 @@
 {
-  "name": "moltbot-cn-installer",
-  "version": "1.0.0",
-  "description": "Automated installer for Moltbot/Clawdbot Chinese WebUI",
+  "name": "openclawcn",
+  "version": "2.0.0",
+  "description": "One-click Chinese WebUI Installer for Moltbot/Clawdbot",
   "main": "index.js",
   "bin": {
-    "moltbot-cn": "./index.js"
+    "openclawcn": "./index.js"
   },
   "scripts": {
     "start": "node index.js"
@@ -12,9 +12,8 @@
   "dependencies": {
     "chalk": "^4.1.2",
     "fs-extra": "^10.0.0",
-    "ora": "^5.4.1",
-    "execa": "^5.1.1",
-    "inquirer": "^8.2.0"
+    "inquirer": "^8.2.0",
+    "ora": "^5.4.1"
   },
   "license": "MIT"
 }
