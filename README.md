@@ -17,57 +17,21 @@
 - [Git](https://git-scm.com/)
 - 已安装原版 `clawdbot` (通过 `npm install -g clawdbot` 或 `moltbot`)
 
-## 🚀 快速开始
+## 🚀 一键安装 (推荐)
 
-### Windows 用户
+无需手动下载代码，直接在终端执行以下命令即可。
 
-1. 下载或克隆本项目。
-2. 双击运行 `run.bat`。
-
-### Linux / macOS 用户
-
-1. 下载或克隆本项目。
-2. 打开终端，进入项目目录。
-3. 运行安装脚本：
-   ```bash
-   bash install.sh
-   ```
-
-### Linux / macOS 一条命令（无需上传文件）
-
-如果不方便上传文件，可以把本项目托管到任意可访问的 Git 仓库，然后在服务器执行一条命令完成克隆与安装：
-
+### Linux / macOS
 ```bash
-git clone <REPO_URL> && cd openclawcn && bash easy_install.sh -y
+bash <(curl -fsSL https://raw.githubusercontent.com/atuizz/openclawcn/main/easy_install.sh)
 ```
 
-如果自动定位失败，可显式指定安装目录：
-
-```bash
-git clone <REPO_URL> && cd openclawcn && bash easy_install.sh -y /path/to/clawdbot
+### Windows (PowerShell)
+```powershell
+iwr https://raw.githubusercontent.com/atuizz/openclawcn/main/easy_install.ps1 | iex
 ```
 
-如果要直接粘贴脚本内容到终端执行，请先启用非退出模式，避免会话被脚本退出命令关闭：
-
-```bash
-export NO_EXIT=1
-```
-
-然后再粘贴 `easy_install.sh` 全文执行即可。
-
-### 一键发布到 GitHub
-
-如果你已经有一个 GitHub 仓库地址，可以在本地执行：
-
-```bash
-bash publish.sh <REPO_URL>
-```
-
-执行后会把当前目录推送到远程仓库，你就可以在服务器用一条命令执行安装。
-
-如果你希望完整自动化发布，建议先安装 Git 并配置 GitHub 认证（如 PAT 或 SSH Key）。
-
-### 手动安装 (跨平台)
+## 📦 手动安装
 
 1. 安装脚本依赖：
    ```bash
