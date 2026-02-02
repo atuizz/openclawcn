@@ -9,7 +9,8 @@ const os = require('os');
 const { execSync } = require('child_process');
 
 // 汉化资源路径 (随项目分发)
-const SOURCE_UI_PATH = path.join(__dirname, 'resources', 'control-ui');
+const SOURCE_UI_PATH_V1 = path.join(__dirname, 'resources', 'control-ui');
+const SOURCE_UI_PATH_V2 = path.join(__dirname, 'resources', 'control-ui-openclaw');
 
 async function main() {
   console.log(chalk.cyan('🚀 Moltbot/Clawdbot 中文 WebUI 离线安装工具'));
@@ -17,11 +18,34 @@ async function main() {
   console.log();
 
   // 0. 检查资源文件
-  if (!fs.existsSync(SOURCE_UI_PATH)) {
+  const hasV1 = fs.existsSync(SOURCE_UI_PATH_V1);
+  const hasV2 = fs.existsSync(SOURCE_UI_PATH_V2);
+
+  if (!hasV1 && !hasV2) {
     console.error(chalk.red('❌ 严重错误: 未找到内置的汉化资源文件。'));
-    console.error(chalk.gray(`期望路径: ${SOURCE_UI_PATH}`));
     console.error(chalk.yellow('请确保您下载了完整的安装包，并且 resources 文件夹存在。'));
     process.exit(1);
+  }
+
+  // 选择版本
+  let selectedSourcePath = SOURCE_UI_PATH_V1;
+  
+  if (hasV1 && hasV2) {
+      const { version } = await inquirer.prompt([
+          {
+              type: 'list',
+              name: 'version',
+              message: '请选择汉化版本:',
+              choices: [
+                  { name: 'Moltbot-cn (旧版)', value: 'v1' },
+                  { name: 'OpenClaw-cn (推荐, 汉化更全)', value: 'v2' }
+              ],
+              default: 'v2'
+          }
+      ]);
+      selectedSourcePath = version === 'v2' ? SOURCE_UI_PATH_V2 : SOURCE_UI_PATH_V1;
+  } else if (hasV2) {
+      selectedSourcePath = SOURCE_UI_PATH_V2;
   }
 
   try {
@@ -107,7 +131,7 @@ async function main() {
 
         // 复制
         spinner.text = '正在部署汉化文件...';
-        await fs.copy(SOURCE_UI_PATH, targetUiPath);
+        await fs.copy(selectedSourcePath, targetUiPath);
 
         spinner.succeed('安装完成！');
         
